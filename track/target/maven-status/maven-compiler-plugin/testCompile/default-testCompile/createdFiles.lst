@@ -1,0 +1,11 @@
+com/habits/track/domain/EventDispatchTest.class
+com/habits/track/application/HabitServiceTest.class
+com/habits/track/domain/EventDispatchTest$EventWithInteger.class
+com/habits/track/domain/EventDispatchTest$EventWithString.class
+com/habits/track/utils/EventDummy.class
+com/habits/track/domain/EventDispatchGenericTest.class
+com/habits/track/domain/EventDispatchTest$Events.class
+com/habits/track/repositories/EventStoreTest.class
+com/habits/track/domain/EventDispatchTest$EventHandlerClass.class
+com/habits/track/repositories/EventStoreInMemoryTest.class
+com/habits/track/domain/HabitTest.class

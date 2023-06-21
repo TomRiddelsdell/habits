@@ -1,0 +1,14 @@
+/workspaces/habits/track/src/main/java/com/habits/track/domain/HabitTrackingUser.java
+/workspaces/habits/track/src/main/java/com/habits/track/application/UserService.java
+/workspaces/habits/track/src/main/java/com/habits/track/repositories/EventStoreInMemory.java
+/workspaces/habits/track/src/main/java/com/habits/track/application/EventStream.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/HabitModified.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/Habit.java
+/workspaces/habits/track/src/main/java/com/habits/track/repositories/EventStore.java
+/workspaces/habits/track/src/main/java/com/habits/track/repositories/EventStreamVersion.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/HabitCreated.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/HabitId.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/Event.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/HabitEvent.java
+/workspaces/habits/track/src/main/java/com/habits/track/application/HabitService.java
+/workspaces/habits/track/src/main/java/com/habits/track/domain/EventStreamId.java

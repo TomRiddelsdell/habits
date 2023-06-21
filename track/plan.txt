@@ -1,0 +1,41 @@
+- Should we have the same event for habit creation and habit modification?
+    - no
+- What should the addHabit service look like (i.e. how do we translate the command into events to store)?
+    - My first instinct is the hide the fact that I plan to use CQRS within the service implementation rather than having separate classes. Having said that, 
+    it's not a large lift to separate into 2 classes and it may protect against extensions that mix them later.
+    - Currently, after separation the query API will only have a fromId fn; which seems a little thin. Maybe this is just a natural step before 
+    we start pulling out any meaningful analytics though.
+- Should we have a specific HabitRepository or a generic EventStore?
+    - A generic event store seems appropriate. 
+    - We can have a single set of tests that specify the expected behaviour of our event store
+    - An in memory fake can be used for the purpose of unit testing
+- Allow for multiple users by adding a habit UUID and a user
+    - This raises the question of "how far through the stack should the user be passed?". The options here are:
+        a. Make all fns in both the command and query APIs take a Role object
+        b. Validate the user within each service method and do not require one for operations on aggregates/event store
+        c. Have a session context object from which we can extract the current user
+    (a) seems like the most safe as if we ensure the event store requires a role to access any event, any badly written service methods will not be
+    able to perform harmful operations. If we compare (a) with (b), (a) has the downside that the event repository must perform validation of the role. 
+    In (b) the event store has no requirement for role validation but it sacrifices some security as a malicious connection could access all events. (c)
+    seems like a middle groud between (a) and (b) which prevents an upfront decision about where to validate the user. The event store may or may not 
+    enforce connections to provide a role and the service method implementations could be written accordingly. I don't like this as much as it reduces
+    consistency. A good use case to consider is changing user validation rules or the addition of a new role. Ideally, such a change would only require
+    modification in 1 place, rather than updating logic scattered throughout the code base. This could be achieved by permissioning each aggregate individually
+    as either RW or RO. Each command/query could potentially have its own rules to determine execution permission. It makes sense to me to keep this validation
+    in the application layer. At the DB level we would expect RO or RW per table/document which corresponds quite closely to RO/RW per aggregate. 
+    --> There are 2 concepts I need to be careful about here. 1) the distinction between User and Role. We have a many to 1 mapping as the customer and 
+    all admins are Users that should have permission to modify an aggregate, but there are only 2 roles HabitTrackingUser and Admin that can modify An
+    aggregate. The User -> Role mapping is an application layer concern and not part of the core domain. The enforcement of access for a Role is domain 
+    logic and should be handled there. This indicates that the domain methods called should verify the Role and the Identity & Access supporting domain
+    should be responsible for verifying a User has a particular Role. 
+    ---> To implement this we should have the application service call I&A to create a Role and that role should be an arg to any domain method. It does not 
+    however need to be passed all the way down to the event store - expecting the event store to verify the role would actually be a leak of business
+    logic into the infra layer.
+- Should we separate Event into a separated interface?
+    - The existing impl means that all repositories need to either natively communicate via Events or they need to adapt their internal representation 
+    of an event to an Event in an embedded ACL
+    - If we make Event an interface instead of a concrete implementation then repositories can use any implementation of Event that they see fit. 
+    - In the case of our internal impl of a repo like EventStoreInMemory we are ok to use Events natively - so no benefit there. However, if we were 
+    to adopt a 3rd party event store then that store would have it's own representation of an event. If we use a concrete class then the fields would
+    have to be copied from the 3rd party rep to the Event. If we use an interface then we could simply create a lightweight wrapper for the 3rd party
+    event class which maps the fields, preventing any copying providing the format is suitable.
