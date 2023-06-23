@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.habits.track.application.HabitServiceTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.548 s <<< FAILURE! - in com.habits.track.application.HabitServiceTest
-com.habits.track.application.HabitServiceTest.testHabitCreationAndDestruction  Time elapsed: 0.538 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "com.habits.track.application.UserService.habitTrackingUserFrom(java.util.UUID)" because "this.userService" is null
-	at com.habits.track.application.HabitServiceTest.testHabitCreationAndDestruction(HabitServiceTest.java:24)
-

@@ -1,7 +1,0 @@
-/workspaces/habits/track/src/test/java/com/habits/track/domain/EventDispatchTest.java
-/workspaces/habits/track/src/test/java/com/habits/track/domain/EventDispatchGenericTest.java
-/workspaces/habits/track/src/test/java/com/habits/track/application/HabitServiceTest.java
-/workspaces/habits/track/src/test/java/com/habits/track/repositories/EventStoreInMemoryTest.java
-/workspaces/habits/track/src/test/java/com/habits/track/domain/HabitTest.java
-/workspaces/habits/track/src/test/java/com/habits/track/utils/EventDummy.java
-/workspaces/habits/track/src/test/java/com/habits/track/repositories/EventStoreTest.java
