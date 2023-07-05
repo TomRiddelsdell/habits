@@ -39,3 +39,41 @@
     to adopt a 3rd party event store then that store would have it's own representation of an event. If we use a concrete class then the fields would
     have to be copied from the 3rd party rep to the Event. If we use an interface then we could simply create a lightweight wrapper for the 3rd party
     event class which maps the fields, preventing any copying providing the format is suitable.
+* Add a projection for getting all habits for a given user
+    - Should Write Model and Read Model be in separate services?
+    - Difference between the Projection and the Read Model
+        - The projection is the event handler that reacts to domain events and updates 
+    - What should the view persistenace store look like?
+        - The key used to lookup a projection is dependent on whether the projection is specific to a specific aggregate or not. If specific to an 
+        aggregate then a (aggregateId, projectionId) should be sufficient. If it spans multiple aggregates then we need to ask the question of how 
+        will we query a projection. It follows that the indices on which a projection will be queried should be specified with the definition of 
+        the projection. We will need to also define the type of index to support range based queries vs field match queries which could use a hash 
+        under the hood.
+        - For single aggregate projections, it's possible to use a lightweight "Live Projections" implementation where we don't require a separate
+        persistence store. Instead the View can be constructed directly from the events, similar to what we do when we rebuild the aggregate.
+        - This increased complexity introduced by the potential for multiple indices of differnt types implies the need for a more complex repo
+        than the Evnet Store. Instead we need something more along the lines of a RDB or column based DB. Weighing up RDB vs CDB we must consider the
+        type of expected queries. Projections are very much OLTP-style where we will read the whole row of the projection on querying rather than some 
+        subset. Given RDBs store whole rows together and CDBs do not the RDBs would likely have both better read and write performance. To begin an
+        in-memory proxy for the purpose of unit testing would be a good choice and later something popular like MySql.
+- Add a desktop based front-end (that will be compatible with AWS)
+- Add a persistence store (that will be compatible with AWS)
+- Deploy on AWS
+- Create an automated deployment pipeline
+- Implement an observability infra to monitor the app in production
+- Write up historical architecture decisions in the ADR tool
+- Add support for tracking progress on a habit
+- Add support for viewing your history, month-on-month
+- Add an Android based front end (should we migrate to a back-ends-for-front-ends setup?)
+- Add trend tracking and identification
+- Add push notifications
+- Workout how I could open it up to friends & family
+- Thinking about scale, what do I need to do now there could be many users? Do we need to introduce event store check points?
+- Add monthly review questionaire
+- Get some feedback
+- Do some more market research on the apps that are out there already (I'm sure there are 100s)
+- What ways can I differentiate?
+    - Could I target firms like GS that have sealed systems? Posibily email based sync between work desktop and server
+    - Can I expand into task management?
+    - Can I expand into the dev tools space? How could I aid the building of good dev habits is a way complimentary to linters?
+- Consider creating an IOS version

@@ -1,11 +1,8 @@
 package com.habits.track.domain;
 
-// import java.util.LinkedHashMap;
-// import java.util.Map;
 import java.util.UUID;
 
-//import static java.util.Collections.unmodifiableMap;
-// TODO: Extract out into separate interface
+// TODO: Extract out into separate interface - when we introduce a non-native event store
 public class Event<T> {
 
   private UUID eventId;
@@ -28,10 +25,6 @@ public class Event<T> {
   public String encryptedData() {
     return encryptedData;
   }
-
-  // public static Event.RawBuilder newEvent(String eventType) {
-  //   return new Event.RawBuilder(eventType);
-  // }
 
   public static <T> Event.TypedBuilder<T> newEvent(Class<T> eventType) {
     return new Event.TypedBuilder<>(eventType);

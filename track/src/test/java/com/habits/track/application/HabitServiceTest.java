@@ -1,13 +1,12 @@
 package com.habits.track.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,10 @@ import com.habits.track.domain.HabitTrackingUser;
 import com.habits.track.domain.UserId;
 import com.habits.track.domain.services.AuthorizationDomainService;
 import com.habits.track.domain.services.HabitDomainService;
+import com.habits.track.projections.HabitsByUserRepository;
+import com.habits.track.projections.HabitsByUserRepository.HabitForUser;
 import com.habits.track.repositories.EventStoreInMemory;
+import com.habits.track.repositories.HabitsByUserRepositoryInMemory;
 
 @ExtendWith(MockitoExtension.class)
 public class HabitServiceTest {
@@ -29,6 +31,7 @@ public class HabitServiceTest {
     HabitService habitService;
     HabitDomainService habitDomainService;
     AuthorizationDomainService authService;
+    HabitsByUserRepository habitsByUserRepo;
     UserId userId;
 
     @BeforeEach
@@ -37,7 +40,8 @@ public class HabitServiceTest {
         this.authService = userService;
         var eventStore = new EventStoreInMemory();
         habitDomainService = new HabitDomainService(eventStore);
-        habitService = new HabitService(eventStore, userService);
+        habitsByUserRepo = new HabitsByUserRepositoryInMemory();
+        habitService = new HabitService(eventStore, userService, habitsByUserRepo);
     }
 
     @Test
@@ -60,6 +64,10 @@ public class HabitServiceTest {
         assertEquals("Test Habit 2", anotherFromRepo.name());
         assertEquals("I must get even better at TDD", anotherFromRepo.description());
 
-        // Try to add a habit with ..
+        // Test the projection
+        Set<HabitForUser> view = habitsByUserRepo.getHabitsForUser(role.id().id());
+        assertEquals(true, view.contains(new HabitForUser("Test Habit 1", "I must get better at TDD", userId.id())));
+        assertEquals(true, view.contains(new HabitForUser("Test Habit 2", "I must get even better at TDD", userId.id())));
+        assertEquals(2, view.size());
     }
 }

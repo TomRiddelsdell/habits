@@ -11,7 +11,7 @@ public record Habit(HabitId id, String name, String description, HabitTrackingUs
     }
 
     public Stream<Event<?>> createHabit(HabitId id, String name, String description, HabitTrackingUser user){
-        return Stream.of(Event.newEvent(new HabitCreated(id.id(), name, description), HabitCreated.class).build());
+        return Stream.of(Event.newEvent(new HabitCreated(id.id(), name, description, user.id().id()), HabitCreated.class).build());
     }
     public static class HabitState {
         private HabitId id;
