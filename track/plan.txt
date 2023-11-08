@@ -61,6 +61,7 @@
 - Deploy on AWS
 - Create an automated deployment pipeline
 - Implement an observability infra to monitor the app in production
+- Investigate setting up from scratch with infra as code using CloudFormation or Terraform
 - Write up historical architecture decisions in the ADR tool
 - Add support for tracking progress on a habit
 - Add support for viewing your history, month-on-month

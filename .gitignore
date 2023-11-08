@@ -25,3 +25,6 @@ replay_pid*
 
 target/
 .vscode/
+temp/
+wildrydes-site/
+aws-bin/
