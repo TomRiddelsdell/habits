@@ -1,0 +1,2 @@
+Issues:
+- NPM and Amplify CLI do not get installed on container start-up

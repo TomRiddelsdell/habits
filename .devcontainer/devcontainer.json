@@ -3,24 +3,28 @@
 {
 	"name": "Java",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	//"image": "mcr.microsoft.com/devcontainers/java:0-17",
-	"dockerFile": "Dockerfile",
+	"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
 
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
 			"version": "none",
 			"installMaven": "true",
-			"installGradle": "false"
+			"installGradle": "true"
 		},
-		"ghcr.io/devcontainers/features/git:1": {}
-	},
-
-	"containerEnv": {
-		"AWS_ACCESS_KEY_ID": "${localEnv:AWS_ACCESS_KEY_ID}",
-		"AWS_SECRET_ACCESS_KEY": "${localEnv:AWS_SECRET_ACCESS_KEY}",
-		"AWS_SESSION_TOKEN": "${localEnv:AWS_SESSION_TOKEN}",
-		"AWS_REGION": "${localEnv:AWS_REGION}"
-	},
+		"ghcr.io/devcontainers/features/aws-cli:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/node:1": {
+			"nodeGypDependencies": true,
+			"version": "lts"
+		},
+		"ghcr.io/devcontainers-contrib/features/amplify-cli:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/aws-cdk:2": {
+			"version": "latest"
+		}
+	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
@@ -30,27 +34,6 @@
 
 	// Configure tool-specific properties.
 	// "customizations": {},
-	"customizations": {
-			"vscode": {
-					"extensions": [
-							"redhat.java",
-							"redhat.fabric8-analytics",
-							"vscjava.vscode-java-debug",
-							"vscjava.vscode-java-test",
-							"vscjava.vscode-java-dependency",
-							"VisualStudioExptTeam.vscodeintellicode",
-							//"vscjava.vscode-gradle",
-							"vscjava.vscode-maven",
-							"wmanth.jar-viewer",
-							"genieai.chatgpt-vscode",
-							"ms-azuretools.vscode-docker",
-							"github.copilot",
-							"amazonwebservices.aws-toolkit-vscode",
-							"figma.figma-vscode-extension"
-					]
-			}
-	}// Configure tool-specific properties.
-
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
