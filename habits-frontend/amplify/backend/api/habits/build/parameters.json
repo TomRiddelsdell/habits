@@ -1,0 +1,14 @@
+{
+    "AppSyncApiName": "habits",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authhabits",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "AuthModeLastUpdated": "2023-11-21T07:25:33.451Z",
+    "S3DeploymentBucket": "amplify-habits-staging-61850-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/1e205033f28c741cf12b2f98ea75eb97db01e721"
+}
