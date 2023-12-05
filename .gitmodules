@@ -1,0 +1,3 @@
+[submodule "habits-frontend"]
+	path = habits-frontend
+	url = https://github.com/TomRiddelsdell/habits-frontend
