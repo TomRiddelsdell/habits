@@ -1,2 +1,14 @@
+Plan:
+- all of the following front-end steps should be deployed to main and tested at each step (to avoid broken deployment we experienced previously)
+- npm install the amplify modules and test usage of a standard component 
+- setup login/auth
+- create a collection in figma to represent a collection of habits
+- create a page that diplays all of a users habits
+- add a search element to filter the users habits
+
+Notes:
+- it seems the amplify UI designer is no longer available, so there's no need to 'amplify pull'. 
+  All changes will need to be made directly in the code and we only ever need to push 
+
 Issues:
 - NPM and Amplify CLI do not get installed on container start-up

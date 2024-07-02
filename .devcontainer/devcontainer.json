@@ -6,7 +6,7 @@
 	"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
 	"customizations": {
 		"vscode": {
-			"extensions": ["amazonwebservices.aws-toolkit-vscode"]
+			"extensions": ["amazonwebservices.aws-toolkit-vscode", "figma.figma-vscode-extension"]
 		}
 	},
 	"features": {
