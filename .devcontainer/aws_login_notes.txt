@@ -1,0 +1,20 @@
+I have setup:
+    1. A single IAM user with which we will sign in to the portal
+    2. 3 Identity Access users (dev-ops-admin) which we will use from the command line
+
+- The Identity Access profiles are create by going to the AWS Access Portal (https://d-9c6776c362.awsapps.com/start/#/?tab=accounts) and 
+choosing a PermissionSet for the profile
+- The you get the SSO start url and region from that page
+
+- I've create a profile "test-profie-29may24" which appears to have been stored in an s3 bucked (aws s3 ls --profile test-profile-29may24)
+- To run any aws command you seem to have to append "--profile test-profile-29may24"
+- This page is helpful if I was to setup new profiles or see how to login: https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html
+
+To login:
+aws sso login --profile dev
+
+To verify I'm logged in:
+aws sts get-caller-identity --profile dev
+
+Questions:
+- How long is a session active for? - 1hr
